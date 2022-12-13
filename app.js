@@ -70,7 +70,6 @@ let attemptsByName = {}
 
 
 
-
 let btn = document.createElement("button")
 btn.innerHTML = "Click to play a game"
 btn.onclick = function(){
