@@ -1,25 +1,30 @@
 /*function randomNum() {
     return Math.floor(Math.random() * 10);
-  }*/
+}*/
 
-function ifElseStatement(value, askedName){
+function ifElseStatement(value, askName){
     if(parseInt(value) === setup.number){
         setup.str += value
-        alert(`That’s Correct ${askedName}! Your previous guesses were ${setup.str}!`)
-        playAgain()
+        setup.attempts++
+        alert(`That’s Correct ${askName}! Your previous guesses were ${setup.str}!`)
+        returnImprovement(askName)
+        playAgain(askName)
         setup.solved = true
     } else if (parseInt(value) > setup.number){
-        alert(`Sorry ${askedName}, Guess Lower`)
+        alert(`Sorry ${askName}, Guess Lower`)
         setup.str += value + ', '
+        setup.attempts++
     } else {
-        alert(`Sorry ${askedName}, Guess Higher`)
+        alert(`Sorry ${askName}, Guess Higher`)
         setup.str += value + ', '
+        setup.attempts++
     }
 }
 
 
-function validation(input){
-    if (parseInt(input) === NaN){
+function validation(input, nameIn){
+    let name = nameIn
+    if (parseInt(input) !== parseInt(input)){
         alert('Input a number between 1 - 100')
     } else if (parseInt(input) > 100 || parseInt(input) < 1){
         if (parseInt(input) < 1){
@@ -28,13 +33,13 @@ function validation(input){
             alert('Too high, put a number between 1 - 100')
         }
     } else {
-        ifElseStatement(input, askName)
+        ifElseStatement(input, nameIn)
     }
 }
 
 
 
-function playAgain(){
+function playAgain(name){
     let playAnswer = prompt('Do you want to play again?')
     setup.str = ''
     if (playAnswer.toLowerCase() === 'yes') {
@@ -46,20 +51,25 @@ function playAgain(){
 }
 
 function whileLoop(){
+    setup.attempts = 0
+    let askName = prompt("What's your Name?")
     while (setup.solved === false){
         let enteredValue = prompt('Guess a number between 1 - 100')
-        validation(enteredValue)
+        validation(enteredValue, askName)
     }
+
 }
 
 let setup = {
     number : 50,
     solved : false,
-    str : '',
-    attemptsByName : {},
+    str: '',
+    attempts: 0,
 }
+let attemptsByName = {}
 
-let askName = prompt("What's your Name?")
+
+
 
 let btn = document.createElement("button")
 btn.innerHTML = "Click to play a game"
@@ -71,14 +81,17 @@ document.body.appendChild(btn)
 
 
 
-// function returnImprovement(name){
-//     let objName = setup[attemptsByName[name]]
-//     if (objName === undefined){
-//         objName = attempts
-//     } else if (objName > attempts) {
-//         alert(`That's Correct ${name}! And you beat your previous attempt by ${objName - attempts} fewer guesses!`)
-//         objName = attempts
-//     } else {
-//         alert(`That's Correct ${name}! And you did worse than your previous attempt by ${attempts - objName} guesses!`)
-//     }
-// }
+function returnImprovement(askName){
+    if (attemptsByName[askName] > setup.attempts) {
+        alert(`That's Correct ${askName}! And you beat your previous attempt by ${attemptsByName[askName] - setup.attempts} fewer guesses!`)
+        attemptsByName[askName] = setup.attempts
+    } else if (attemptsByName[askName] < setup.attempts) {
+        alert(`That's Correct ${askName}! And you did worse than your previous attempt by ${setup.attempts - attemptsByName[askName]} guesses!`)
+        attemptsByName[askName] = setup.attempts
+    } else if (attemptsByName[askName] === setup.attempts){
+        alert(`That's Correct ${askName}! You guessed the same amount as last time!`)
+        attemptsByName[askName] = setup.attempts
+    } else {
+        attemptsByName[askName] = setup.attempts
+    }
+}
