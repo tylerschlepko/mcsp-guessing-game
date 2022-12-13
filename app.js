@@ -1,17 +1,19 @@
-
+/*function randomNum() {
+    return Math.floor(Math.random() * 10);
+  }*/
 
 function ifElseStatement(value, askedName){
-    if(parseInt(value) === number){
-        str += value
-        alert(`That’s Correct ${askedName}! Your previous guesses were ${str}!`)
+    if(parseInt(value) === setup.number){
+        setup.str += value
+        alert(`That’s Correct ${askedName}! Your previous guesses were ${setup.str}!`)
         playAgain()
-        solved = true
-    } else if (parseInt(value) > number){
+        setup.solved = true
+    } else if (parseInt(value) > setup.number){
         alert(`Sorry ${askedName}, Guess Lower`)
-        str += value + ', '
+        setup.str += value + ', '
     } else {
         alert(`Sorry ${askedName}, Guess Higher`)
-        str += value + ', '
+        setup.str += value + ', '
     }
 }
 
@@ -34,7 +36,7 @@ function validation(input){
 
 function playAgain(){
     let playAnswer = prompt('Do you want to play again?')
-    str = ''
+    setup.str = ''
     if (playAnswer.toLowerCase() === 'yes') {
         whileLoop()
     } else if (playAnswer.toLowerCase() === 'no'){
@@ -44,29 +46,32 @@ function playAgain(){
 }
 
 function whileLoop(){
-    while (solved === false){
+    while (setup.solved === false){
         let enteredValue = prompt('Guess a number between 1 - 100')
         validation(enteredValue)
     }
 }
 
-
-var number = 50
-var solved = false
-str = ''
-let attemptsByName = {}
-var askName = prompt("What's your name?")
-
-
-function returnImprovement(name){
-    let objName = attemptsByName[name] 
-    if (objName === undefined){
-        objName = attempts
-    } else if (objName > attempts) {
-        alert(`That's Correct ${name}! And you beat your previous attempt by ${objName - attempts} fewer guesses!`)
-        objName = attempts
-    } else {
-        alert(`That's Correct ${name}! And you did worse than your previous attempt by ${attempts - objName} guesses!`)
-    }
+let setup = {
+    number : 50,
+    solved : false,
+    str : '',
+    attemptsByName : {},
 }
+
+
+// function returnImprovement(name){
+//     let objName = setup[attemptsByName[name]]
+//     if (objName === undefined){
+//         objName = attempts
+//     } else if (objName > attempts) {
+//         alert(`That's Correct ${name}! And you beat your previous attempt by ${objName - attempts} fewer guesses!`)
+//         objName = attempts
+//     } else {
+//         alert(`That's Correct ${name}! And you did worse than your previous attempt by ${attempts - objName} guesses!`)
+//     }
+// }
+
+let askName = prompt("What's your Name?")
 whileLoop()
+
