@@ -59,6 +59,17 @@ let setup = {
     attemptsByName : {},
 }
 
+let askName = prompt("What's your Name?")
+
+let btn = document.createElement("button")
+btn.innerHTML = "Click to play a game"
+btn.onclick = function(){
+    whileLoop()
+}
+document.body.appendChild(btn)
+
+
+
 
 // function returnImprovement(name){
 //     let objName = setup[attemptsByName[name]]
@@ -71,7 +82,3 @@ let setup = {
 //         alert(`That's Correct ${name}! And you did worse than your previous attempt by ${attempts - objName} guesses!`)
 //     }
 // }
-
-let askName = prompt("What's your Name?")
-whileLoop()
-
