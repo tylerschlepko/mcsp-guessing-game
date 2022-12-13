@@ -46,7 +46,7 @@ function playAgain(name){
         whileLoop()
     } else if (playAnswer.toLowerCase() === 'no'){
     } else {
-        playAgain()
+        playAgain(name)
     }
 }
 
